@@ -11,7 +11,9 @@ function HeroPanel.OnDraw()
     if not Menu.IsEnabled(HeroPanel.optionEnable) then return end
 
 	local myHero = Heroes.GetLocal()
+	
 	if not myHero then return end
+	
 	local myTeam = Entity.GetTeamNum(myHero)
 	local drawX = 10
 	local drawY = 400
@@ -20,7 +22,7 @@ function HeroPanel.OnDraw()
 	local maxWidth = 200
 	local rectHeight = lineGap - 1
 	local heroIconWidth = math.floor(rectHeight * 160 / 80) -- original image is 128 * 72 (pixels) / оригинальная иконка 128 & 72
-    local w, h = Renderer.GetScreenSize()
+        local w, h = Renderer.GetScreenSize()
 	local isSameTeamTable = {}
 	
 	for i = 1, Heroes.Count() do
