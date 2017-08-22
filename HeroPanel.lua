@@ -127,12 +127,20 @@ function HeroPanel.OnDraw()
                 else
                     if Ability.GetManaCost(ulimateAbility) <= NPC.GetMana(hero) then
                         if Ability.GetLevel(ulimateAbility) >= 1 then
-                            Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")" .. " is on cooldown. Reaming: " .. Ability.GetCooldownTimeLeft(ulimateAbility), 1)
+                            if not Ability.IsPassive(ulimateAbility) then
+                                Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")" .. " is on cooldown. Reaming: " .. Ability.GetCooldownTimeLeft(ulimateAbility), 1)
+                            else
+                                Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")", 1)
+                            end
                         else
                             Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. " not learned. Wait when he learn it!")
                         end
                     else
-                        Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")" .. ".No mana. Reaming: " .. Ability.GetManaCost(ulimateAbility) - NPC.GetMana(hero) .. ". is on cooldown. Reaming: " .. Ability.GetCooldownTimeLeft(ulimateAbility), 1)
+                        if not Ability.IsPassive(ulimateAbility) then
+                            Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")" .. ".No mana. Reaming: " .. Ability.GetManaCost(ulimateAbility) - NPC.GetMana(hero) .. ". is on cooldown. Reaming: " .. Ability.GetCooldownTimeLeft(ulimateAbility), 1)
+                        else
+                            Renderer.DrawText(HeroPanel.font, w / 2 - 496, drawY - 2, Entity.GetHealth(hero) .. " / " .. Entity.GetMaxHealth(hero) .. "  " .. string.gsub(heroName, "npc_dota_hero_", "") .. "'s" .. string.gsub(abilityName, "_", " ") .. "(" .. Ability.GetLevel(ulimateAbility) .. ")" .. ".No mana. Reaming: " .. Ability.GetManaCost(ulimateAbility) - NPC.GetMana(hero), 1)
+                        end
                     end
                 end
             else
